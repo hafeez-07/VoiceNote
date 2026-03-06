@@ -1,0 +1,123 @@
+import Note from "../models/noteModel.js";
+
+export const getHome = (req, res) => {
+  res.status(200).json({
+    msg: "Api working",
+  });
+};
+
+//add a notes
+export const addNote = async (req, res) => {
+  try {
+    const { title, body } = req.body;
+    if (!title || !body) {
+      return res.status(400).json({
+        error: "Both title and body is required",
+      });
+    }
+    const newNote = await Note.create({
+      title,
+      body,
+    });
+    res.status(201).json(newNote);
+  } catch (err) {
+    res.status(500).json({
+      error: err.message,
+    });
+  }
+};
+
+//update notes
+
+export const updateNote = async (req, res) => {
+  try {
+    const { title, body } = req.body;
+    const { id } = req.params;
+
+    if (!title || !body) {
+      return res.status(400).json({
+        error: "Both title and body is required",
+      });
+    }
+
+    const updatedNote = await Note.findByIdAndUpdate(
+      id,
+      {
+        title,
+        body,
+      },
+      { new: true },
+    );
+
+    if (!updatedNote) {
+      return res.status(404).json({
+        error: "Note not found",
+      });
+    }
+
+    res.status(200).json(updatedNote);
+  } catch (err) {
+    res.status(500).json({
+      error: err.message,
+    });
+  }
+};
+
+//delete notes
+
+export const deleteNote = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const deletedNote = await Note.findByIdAndDelete(id);
+    if (!deletedNote) {
+      return res.status(404).json({
+        error: "No note found",
+      });
+    }
+    res.status(204).json({
+      message: "successfully deleted",
+    });
+  } catch (err) {
+    res.status(500).json({
+      error: err.message,
+    });
+  }
+};
+
+//display all notes
+
+export const getAllNotes = async (req, res) => {
+  try {
+    const allNotes = await Note.find()
+      .select("title body")
+      .sort({ createdAt: -1 });
+    if (allNotes.length === 0) {
+      return res.status(404).json({
+        error: "No note found",
+      });
+    }
+    res.status(200).json(allNotes);
+  } catch (err) {
+    res.status(500).json({
+      error: err.message,
+    });
+  }
+};
+
+//get single notes
+export const getNote = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const note = await Note.findById(id).select("title body");
+    if (!note) {
+      return res.status(404).json({
+        error: "Note not found",
+      });
+    }
+    res.status(200).json(note);
+  } catch (err) {
+    res.status(500).json({
+      error: err.message,
+    });
+  }
+};
