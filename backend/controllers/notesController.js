@@ -106,11 +106,7 @@ export const getAllNotes = async (req, res) => {
     const allNotes = await Note.find()
       .select("title body createdAt updatedAt ")
       .sort({ createdAt: -1 });
-    if (allNotes.length === 0) {
-      return res.status(404).json({
-        error: "No note found",
-      });
-    }
+
     res.status(200).json(allNotes);
   } catch (err) {
     res.status(500).json({
@@ -124,7 +120,11 @@ export const getNote = async (req, res) => {
   try {
     const { id } = req.params;
     const note = await Note.findById(id).select("title body");
-
+    if (!note) {
+      return res.status(404).json({
+        error: "Note not found",
+      });
+    }
     res.status(200).json(note);
   } catch (err) {
     res.status(500).json({
