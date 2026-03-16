@@ -9,7 +9,7 @@ type Props = {
 
 const Home = ({ notes, setNotes }: Props) => {
   return (
-    <div>
+    <div className="px-3">
       <NoteForm setNotes={setNotes} />
       <Notes notes={notes} setNotes={setNotes} />
     </div>

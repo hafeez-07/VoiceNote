@@ -21,6 +21,9 @@ const NoteForm = ({ setNotes }: Props) => {
   const submitHandler = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (title.trim() === "" || body.trim() === "") {
+      toast.error("Note title or content cannot be empty", {
+        duration: 2000,
+      });
       return;
     }
 

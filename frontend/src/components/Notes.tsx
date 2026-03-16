@@ -66,7 +66,7 @@ const Notes = ({ notes, setNotes }: NoteProps) => {
             }
           }, 6000);
 
-          toast.info("All notes deleted successfully", {
+          toast("All notes deleted successfully", {
             duration: 3000,
             action: {
               label: "undo",
