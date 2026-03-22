@@ -8,10 +8,12 @@ import RootLayout from "./layout/RootLayout.tsx";
 import EditNote from "./pages/EditNote.tsx";
 import Register from "./pages/Register.tsx";
 import AuthLayout from "./layout/AuthLayout.tsx";
-import Login from "./pages/Login.tsx";
+import Landing from "./pages/Landing.tsx";
+import useAuth from "../hooks/useAuth.ts";
 
 function App() {
   const [notes, setNotes] = useState<Note[]>([]);
+  const { user } = useAuth();
 
   useEffect(() => {
     const loadNotes = async () => {
@@ -19,16 +21,16 @@ function App() {
       setNotes(data);
     };
     loadNotes();
-  }, []);
+  }, [user]);
 
   const router = createBrowserRouter([
     {
-      path: "/",
+      path: "/app",
       element: <RootLayout setNotes={setNotes} />,
       children: [
         {
           index: true,
-          element: <Home notes={notes} setNotes={setNotes} />,
+          element: <Home notes={notes} setNotes={setNotes} />, //dashboard
         },
         {
           path: "edit/:id",
@@ -38,15 +40,16 @@ function App() {
     },
 
     {
+      path: "/",
       element: <AuthLayout />,
       children: [
         {
-          path: "/register",
-          element: <Register />,
+          index: true,
+          element: <Landing />,
         },
         {
-          path: "/login",
-          element: <Login />,
+          path: "/register",
+          element: <Register />,
         },
       ],
     },

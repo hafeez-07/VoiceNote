@@ -73,14 +73,14 @@ const EditNote = ({ setNotes, notes }: Props) => {
         ),
     );
 
-    navigate("/");
+    navigate("/app");
     toast.success("updated succesfully", {
       duration: 2000,
     });
   };
 
   return (
-    <div className="max-w-5xl bg-zinc-900 bg-zinc-900 mx-auto  rounded-xl">
+    <div className="max-w-5xl  bg-zinc-900 mx-auto  rounded-xl">
       <h2 className="text-2xl font-semibold border-b py-2 px-4 border-zinc-700">
         Update Note
       </h2>

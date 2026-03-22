@@ -27,7 +27,7 @@ const Register = () => {
       toast.success("registered succesfully", {
         duration: 2000,
       });
-      navigate("/");
+      navigate("/app");
     } catch (err) {
       toast.error("something went wrong", {
         duration: 2000,
@@ -80,7 +80,7 @@ const Register = () => {
       </form>
       <div className="text-center mt-2">
         Already have an account?
-        <Link to="/login" className="text-blue-600">
+        <Link to="/" className="text-blue-600">
           {" "}
           login
         </Link>

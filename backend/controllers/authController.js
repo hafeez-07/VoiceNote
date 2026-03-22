@@ -64,6 +64,7 @@ export const loginUser = async (req, res) => {
 
     //check if email is correct
     const user = await User.findOne({ email });
+
     if (!user) {
       return res.status(400).json({
         error: "Incorrect email or password",
@@ -81,9 +82,10 @@ export const loginUser = async (req, res) => {
     //generate token
     generateToken(user._id, res);
 
-    res.status(200).json({
-      msg: "Login sucessful",
-    });
+    //remove password before sending
+    user.password = undefined;
+
+    res.status(200).json(user);
   } catch (err) {
     res.status(500).json({
       error: err.message,
@@ -92,7 +94,6 @@ export const loginUser = async (req, res) => {
 };
 
 export const logoutUser = (req, res) => {
-
   res.clearCookie("token", {
     httpOnly: true,
     sameSite: "strict",
