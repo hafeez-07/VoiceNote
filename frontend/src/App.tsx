@@ -11,6 +11,7 @@ import AuthLayout from "./layout/AuthLayout.tsx";
 import Landing from "./pages/Landing.tsx";
 import useAuth from "../hooks/useAuth.ts";
 import ProtectedRoutes from "./components/ProtectedRoutes.tsx";
+import Settings from "./pages/Settings.tsx";
 
 function App() {
   const [notes, setNotes] = useState<Note[]>([]);
@@ -32,23 +33,24 @@ function App() {
   const router = createBrowserRouter([
     {
       path: "/app",
-      element: <ProtectedRoutes />,
+
+      element: <RootLayout setNotes={setNotes} />,
       children: [
         {
-          element: <RootLayout setNotes={setNotes} />,
-          children: [
-            {
-              index: true,
-              element: <Home notes={notes} setNotes={setNotes} />,
-            },
-            {
-              path: "edit/:id",
-              element: <EditNote notes={notes} setNotes={setNotes} />,
-            },
-          ],
+          index: true,
+          element: <Home notes={notes} setNotes={setNotes} />,
+        },
+        {
+          path: "edit/:id",
+          element: <EditNote notes={notes} setNotes={setNotes} />,
+        },
+        {
+          path: "settings",
+          element: <Settings />,
         },
       ],
     },
+
     {
       path: "/",
       element: <AuthLayout />,

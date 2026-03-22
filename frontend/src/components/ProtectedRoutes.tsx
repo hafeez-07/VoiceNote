@@ -1,7 +1,7 @@
 import useAuth from "../../hooks/useAuth";
 import { Navigate, Outlet } from "react-router-dom";
 
-const ProtectedRoutes = () => {
+const ProtectedRoutes = ({children}:{children:React.ReactNode}) => {
   const { loading, user } = useAuth();
 
   if (loading) return <p>Loading...</p>;

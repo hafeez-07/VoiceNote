@@ -1,11 +1,6 @@
 import { createContext, useState, useEffect } from "react";
 import { fetchUser } from "../src/api/userApi.ts";
-
-type User = {
-  _id: string;
-  username: String;
-  email: String;
-};
+import type { User } from "../src/types/user.ts";
 
 type AuthContextType = {
   user: User | null;

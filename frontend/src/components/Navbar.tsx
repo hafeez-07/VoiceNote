@@ -32,6 +32,7 @@ const Navbar = ({ setNotes }: Props) => {
           <NavLink to="/app" className="hover:text-orange-400">
             Home
           </NavLink>
+          <NavLink to="settings" >Settings</NavLink>
           <button onClick={handleLogout} className="destructive-button">
             Logout
           </button>
