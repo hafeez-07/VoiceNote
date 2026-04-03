@@ -10,7 +10,7 @@ export const getUser = async (req, res) => {
     }
 
     const user = await User.findById(userId).select(
-      "_id username email fullname age",
+      "_id username email fullname age imageUrl",
     );
 
     if (!user) {
@@ -34,7 +34,7 @@ export const updateUser = async (req, res) => {
 
     if (!userId) {
       return res.status(401).json({
-        msg: "Unauthorised access",
+        msg: "Unauthorized access",
       });
     }
     const { fullname, username, email, age } = req.body;
@@ -62,6 +62,41 @@ export const updateUser = async (req, res) => {
   } catch (err) {
     res.status(500).json({
       error: err.message,
+    });
+  }
+};
+
+export const uploadImage = async (req, res) => {
+  try {
+    const userId = req.userId;
+    if (!userId) {
+      return res.status(401).json({
+        error: "UnAuthorized access",
+      });
+    }
+
+    if (!req.file) {
+      return res.status(400).json({
+        error: "No file uploaded",
+      });
+    }
+
+    const user = await User.findById(userId);
+    if (!user) {
+      return res.status(404).json({
+        error: "User not found",
+      });
+    }
+
+    user.imageUrl = req.file.path;
+    await user.save();
+    res.status(200).json({
+      imageUrl: user.imageUrl,
+    });
+  } catch (err) {
+    console.error("Upload error:", err);
+    res.status(500).json({
+      error: err.message || "Upload failed",
     });
   }
 };

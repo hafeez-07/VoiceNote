@@ -38,3 +38,25 @@ export const updateUser =async(user:User)=>{
     return data;
 
 }
+
+export const uploadProfile = async (file:File)=>{
+
+      const formData = new FormData();
+        formData.append("profile", file);
+   
+
+    const response = await fetch(`${BASE_URL}/upload`,{
+        method:"POST",
+        credentials:"include",
+        body:formData
+
+    })
+
+    const data = await response.json();
+
+    if(!response.ok){
+        throw new Error(data.message || "couldn't upload profile")
+    }
+
+    return data;
+}

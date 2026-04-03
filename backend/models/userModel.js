@@ -22,6 +22,11 @@ const userSchema = mongoose.Schema(
     age: {
       type: Number,
     },
+    imageUrl: {
+      type: String,
+      default:
+        "https://res.cloudinary.com/dalyf3pd9/image/upload/v1775195871/defaultProfile_msyvst.webp",
+    },
   },
   { timestamps: true },
 );

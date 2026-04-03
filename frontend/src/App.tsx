@@ -33,20 +33,24 @@ function App() {
   const router = createBrowserRouter([
     {
       path: "/app",
-
-      element: <RootLayout setNotes={setNotes} />,
+      element: <ProtectedRoutes />,
       children: [
         {
-          index: true,
-          element: <Home notes={notes} setNotes={setNotes} />,
-        },
-        {
-          path: "edit/:id",
-          element: <EditNote notes={notes} setNotes={setNotes} />,
-        },
-        {
-          path: "settings",
-          element: <Settings />,
+          element: <RootLayout setNotes={setNotes} />,
+          children: [
+            {
+              index: true,
+              element: <Home notes={notes} setNotes={setNotes} />,
+            },
+            {
+              path: "edit/:id",
+              element: <EditNote notes={notes} setNotes={setNotes} />,
+            },
+            {
+              path: "settings",
+              element: <Settings />,
+            },
+          ],
         },
       ],
     },
@@ -66,7 +70,6 @@ function App() {
       ],
     },
   ]);
-
   return <RouterProvider router={router} />;
 }
 

@@ -1,7 +1,8 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import useAuth from "../../hooks/useAuth";
-import { updateUser } from "../api/userApi";
+import { updateUser, uploadProfile } from "../api/userApi";
 import { toast } from "sonner";
+import { MdEmail } from "react-icons/md";
 
 type UserForm = {
   fullname: string;
@@ -11,6 +12,7 @@ type UserForm = {
 };
 
 const Settings = () => {
+  const fileInputRef = useRef<HTMLInputElement | null>(null);
   const { user, setUser } = useAuth();
   const [formData, setFormData] = useState<UserForm>({
     fullname: "",
@@ -68,6 +70,32 @@ const Settings = () => {
     }
   };
 
+  const handleClick = () => {
+    fileInputRef.current?.click();
+  };
+
+  const handleChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+
+    // Upload in background
+    try {
+      const data = await uploadProfile(file);
+      setUser((prev) => {
+        if (!prev) return null;
+        return {
+          ...prev,
+          imageUrl: data.imageUrl, // Replace with actual URL from server
+        };
+      });
+      toast.success("Profile picture updated", {
+        duration: 1000,
+      });
+    } catch (err) {
+      toast.error("could not upload ");
+    }
+  };
+
   return (
     <div className="max-w-5xl mx-auto px-3">
       <h2 className="text-2xl font-semibold">Account Settings</h2>
@@ -75,20 +103,41 @@ const Settings = () => {
         Manage your personal information and account preferences.
       </p>
       <div className="flex flex-col sm:flex-row justify-between mt-8 gap-10">
-        <div className="flex flex-col items-center border py-5 px-20 border-zinc-800 bg-zinc-900 rounded-2xl">
-          <div className="w-32 h-32 rounded-[50%] bg-white mb-4">
-            <img />
+        <div className="shadow-lg shadow-black flex flex-col gap-1 items-center border py-5 px-20 border-zinc-800 bg-zinc-900 rounded-2xl">
+          <div className="w-32 h-32 bg-black rounded-[50%] mb-4">
+            <img
+              src={user?.imageUrl}
+              alt="dp"
+              className="w-32 h-32 object-contain rounded-[50%] ring-3 ring-orange-400"
+            />
           </div>
 
           <div>{user?.fullname}</div>
           <div className="text-zinc-400">{user?.username}</div>
+          <button
+            onClick={handleClick}
+            className="bg-linear-to-br from-blue-500 to-blue-600  p-3 rounded text-center  w-full"
+          >
+            upload picture
+          </button>
+          <div className="mt-2 flex items-center gap-1 ">
+            <MdEmail />
+            <div>{user?.email}</div>
+          </div>
+          <input
+            type="file"
+            name="profile"
+            ref={fileInputRef}
+            onChange={handleChange}
+            className="hidden"
+          />
         </div>
         <form
           onSubmit={submitHandler}
           className="flex flex-col  grow gap-4 border border-zinc-800 bg-zinc-900 rounded-2xl p-5 sm:p-10"
         >
           <div className="grid gap-1">
-            <label className="text-zinc-400">Username</label>
+            <label className="text-sm text-zinc-400">Username</label>
             <input
               type="text"
               name="username"
@@ -98,7 +147,7 @@ const Settings = () => {
             />
           </div>
           <div className="grid gap-1">
-            <label className="text-zinc-400">Fullname</label>
+            <label className="text-sm text-zinc-400">Fullname</label>
             <input
               type="text"
               name="fullname"
@@ -108,7 +157,7 @@ const Settings = () => {
             />
           </div>
           <div className="grid gap-1">
-            <label className="text-zinc-400">Email</label>
+            <label className="text-sm text-zinc-400">Email</label>
             <input
               type="email"
               name="email"
@@ -118,7 +167,7 @@ const Settings = () => {
             />
           </div>
           <div className="grid gap-1">
-            <label className="text-zinc-400">Age</label>
+            <label className="text-sm text-zinc-400">Age</label>
             <input
               type="number"
               name="age"

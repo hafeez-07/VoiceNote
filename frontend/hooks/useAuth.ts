@@ -4,7 +4,7 @@ import { useContext } from "react";
 const useAuth =()=>{
     const context = useContext(AuthContext);
     if(!context){
-        throw new Error(" useAuth must be inside  Authprovider");
+        throw new Error(" useAuth must be inside  AuthProvider");
     }
     return context;
 }

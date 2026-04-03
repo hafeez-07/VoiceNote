@@ -27,7 +27,7 @@ const Register = () => {
     e.preventDefault();
     try {
       const user = await registerUser(formData);
-      toast.success("registered succesfully", {
+      toast.success("registered successfully", {
         duration: 2000,
       });
     
