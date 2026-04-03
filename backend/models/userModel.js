@@ -19,6 +19,9 @@ const userSchema = mongoose.Schema(
       type: String,
       required: true,
     },
+    age: {
+      type: Number,
+    },
   },
   { timestamps: true },
 );

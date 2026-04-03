@@ -1,5 +1,7 @@
 const BASE_URL='http://localhost:3000'
 
+import type { User } from "../types/user";
+
 export const fetchUser = async ()=>{
     const response = await fetch(`${BASE_URL}/getUser`,{
         credentials:"include"
@@ -15,4 +17,24 @@ export const fetchUser = async ()=>{
         throw new Error(data.message || "couldn't find user");
     }
     return data;
+}
+
+export const updateUser =async(user:User)=>{
+    const response = await fetch(`${BASE_URL}/updateUser`,{
+        method:"PUT",
+        credentials:"include",
+        headers:{
+            "Content-Type":"application/json"
+        },
+        body:JSON.stringify(user)
+    })
+
+    const data = await response.json();
+
+    if(!response.ok){
+        throw new Error(data.message || " could not update user");
+    }
+
+    return data;
+
 }

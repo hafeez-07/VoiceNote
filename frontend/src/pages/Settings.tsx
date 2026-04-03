@@ -1,14 +1,22 @@
 import { useEffect, useState } from "react";
 import useAuth from "../../hooks/useAuth";
-import type { User } from "../types/user";
+import { updateUser } from "../api/userApi";
+import { toast } from "sonner";
+
+type UserForm = {
+  fullname: string;
+  username: string;
+  email: string;
+  age: string;
+};
 
 const Settings = () => {
-  const { user } = useAuth();
-  const [formData, setFormData] = useState<User>({
+  const { user, setUser } = useAuth();
+  const [formData, setFormData] = useState<UserForm>({
     fullname: "",
     username: "",
     email: "",
-    age: 0,
+    age: "",
   });
 
   useEffect(() => {
@@ -17,19 +25,47 @@ const Settings = () => {
         fullname: user.fullname || "",
         username: user.username || "",
         email: user.email || "",
-        age: user.age || 0,
+        age: user.age ? String(user.age) : "",
       });
     }
   }, [user]);
 
-  console.log(formData);
-
   const inputHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
-    setFormData({
+    setFormData((prev) => ({
+      ...prev,
+      [name]: value,
+    }));
+  };
+
+  const submitHandler = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+
+    const previousUser = user;
+
+    const dataToSubmit = {
       ...formData,
-      [name]: name === "age" ? Number(value) : value,
-    });
+      age: formData.age === "" ? 0 : Number(formData.age),
+    };
+
+    setUser(dataToSubmit);
+
+    try {
+      const updatedUser = await updateUser(dataToSubmit);
+      setUser(updatedUser);
+      toast.success("Data updated", {
+        duration: 1000,
+      });
+    } catch (err) {
+      setUser(previousUser);
+      if (err instanceof Error) {
+        toast.error(err.message);
+        console.log(err.message);
+      } else {
+        toast.error("something went wrong");
+        console.log("unknown error :", err);
+      }
+    }
   };
 
   return (
@@ -43,10 +79,14 @@ const Settings = () => {
           <div className="w-32 h-32 rounded-[50%] bg-white mb-4">
             <img />
           </div>
+
           <div>{user?.fullname}</div>
           <div className="text-zinc-400">{user?.username}</div>
         </div>
-        <div className="flex flex-col  grow gap-4 border border-zinc-800 bg-zinc-900 rounded-2xl p-5 sm:p-10">
+        <form
+          onSubmit={submitHandler}
+          className="flex flex-col  grow gap-4 border border-zinc-800 bg-zinc-900 rounded-2xl p-5 sm:p-10"
+        >
           <div className="grid gap-1">
             <label className="text-zinc-400">Username</label>
             <input
@@ -88,7 +128,7 @@ const Settings = () => {
             />
           </div>
           <input type="submit" className="submit-button" />
-        </div>
+        </form>
       </div>
     </div>
   );
