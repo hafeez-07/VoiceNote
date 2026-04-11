@@ -105,15 +105,15 @@ const Notes = ({ notes, setNotes }: NoteProps) => {
           {notes.map((note) => (
             <div
               key={note._id}
-              className="mt-5 bg-zinc-900 rounded-xl hover:scale-[1.02] transition-all duration-300 hover:shadow-lg  shadow-orange-500 flex flex-col"
+              className="p-5 space-y-3 mt-5 rounded-xl hover:scale-[1.02] transition-all duration-300 shadow-lg  shadow-black flex flex-col bg-white/5  backdrop-blur-md border border-white/10"
             >
-              <h4 className=" border-b p-2 font-semibold text-lg border-zinc-700 pb-1">
+              <h4 className="font-semibold text-lg border-zinc-700 pb-1">
                 {note.title}
               </h4>
-              <div className="grow line-clamp-3 p-2 border-b border-zinc-700">
+              <div className="text-sm grow line-clamp-3  border-zinc-700">
                 {note.body}
               </div>
-              <div className="flex justify-between p-2 mt-auto">
+              <div className="text-xs flex justify-between  mt-auto">
                 <div>
                   {new Date(note.updatedAt).toLocaleDateString("en-US", {
                     day: "numeric",
@@ -121,15 +121,16 @@ const Notes = ({ notes, setNotes }: NoteProps) => {
                     year: "numeric",
                   })}
                 </div>
-                <div className="flex gap-1">
-                  <button className=" px-1 rounded hover:cursor-pointer hover:text-blue-500 transition-all duration-300">
+                <div className="flex gap-3">
+                  <button className=" rounded hover:cursor-pointer hover:text-blue-500 transition-all duration-300">
                     <Link to={`edit/${note._id}`}>
-                      <FaPen className="text-sm text-orange-400" />
+                      <FaPen className=" text-sky-400 hover:text-sky-600 transition duration-300 ease-in" />
                     </Link>
+                    
                   </button>
-                  <button className="  px-1 rounded hover:cursor-pointer  hover:text-red-500 transition-all duration-300">
+                  <button className=" rounded hover:cursor-pointer  hover:text-red-500 transition-all duration-300">
                     <FaTrash
-                      className="text-sm"
+                    className="text-zinc-500 hover:text-zinc-300 transition duration-300 ease-in"
                       onClick={() => deleteOneNote(note._id)}
                     />
                   </button>
@@ -140,7 +141,7 @@ const Notes = ({ notes, setNotes }: NoteProps) => {
         </div>
       ) : (
         <div className="text-2xl text-zinc-400 text-center mt-10">
-          No notes yet
+          No notes yet. Start by creating one ✨
         </div>
       )}
     </div>

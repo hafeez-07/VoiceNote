@@ -23,7 +23,7 @@ const Navbar = ({ setNotes }: Props) => {
   };
 
   return (
-    <div className="bg-gray-950 text-white py-2 px-5 shadow-2xl shadow-orange-400 ">
+    <div className="bg-gray-950 text-white py-2 px-5 border-b border-zinc-600">
       <div className=" flex justify-between items-center mx-auto">
         <h1 className="text-2xl font-bold">Notes App</h1>
 
