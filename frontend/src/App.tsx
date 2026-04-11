@@ -18,7 +18,7 @@ function App() {
   const { user } = useAuth();
 
   useEffect(() => {
-    //if user is loggedout , return
+    //if user is logged out , return
     if (!user) {
       return;
     }

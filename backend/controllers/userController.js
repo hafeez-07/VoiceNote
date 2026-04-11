@@ -1,5 +1,6 @@
 import User from "../models/userModel.js";
 import cloudinary from "../config/cloudinary.js";
+import Note from "../models/noteModel.js";
 
 export const getUser = async (req, res) => {
   try {
@@ -123,9 +124,17 @@ export const deleteUser = async (req, res) => {
 
     //delete user image
 
-    if (user.imagePublicId) {
-      await cloudinary.uploader.destroy(user.imagePublicId);
+    try {
+      if (user.imagePublicId) {
+        await cloudinary.uploader.destroy(user.imagePublicId);
+      }
+    } catch (e) {
+      console.error("Image delete failed", e);
     }
+
+    //delete user's notes
+
+    await Note.deleteMany({ userId: user._id });
 
     //delete user
 
