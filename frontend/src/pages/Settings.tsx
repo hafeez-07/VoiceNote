@@ -84,6 +84,7 @@ const Settings = () => {
 
     //instant preview
     const previewURL = URL.createObjectURL(file);
+   
 
     //show preview
     setUser((prev) => {
@@ -105,7 +106,7 @@ const Settings = () => {
           imageUrl: data.imageUrl, // Replace with actual URL from server
         };
       });
-      URL.revokeObjectURL(previewURL);
+    
       toast.success("Profile image updated", {
         duration: 1000,
       });
@@ -118,6 +119,9 @@ const Settings = () => {
           imageUrl: previousImage,
         };
       });
+    }
+    finally{
+      URL.revokeObjectURL(previewURL);
     }
   };
 
