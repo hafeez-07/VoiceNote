@@ -149,7 +149,7 @@ const Settings = () => {
           </div>
           <button
             onClick={handleClick}
-            className="flex items-center gap-2 bg-linear-to-br from-blue-500 to-blue-600  p-3 rounded text-center  w-full"
+            className="cursor-pointer flex items-center gap-2 bg-linear-to-br from-blue-500 to-blue-600  p-3 rounded text-center  w-full"
           >
             <FaCamera />
             <div>Change photo</div>
