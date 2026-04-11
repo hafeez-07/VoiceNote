@@ -1,4 +1,5 @@
 import User from "../models/userModel.js";
+import cloudinary from "../config/cloudinary.js";
 
 export const getUser = async (req, res) => {
   try {
@@ -88,7 +89,12 @@ export const uploadImage = async (req, res) => {
       });
     }
 
+    if (user.imagePublicId) {
+      cloudinary.uploader.destroy(user.imagePublicId);
+    }
+
     user.imageUrl = req.file.path;
+    user.imagePublicId = req.file.filename;
     await user.save();
     res.status(200).json({
       imageUrl: user.imageUrl,

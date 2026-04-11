@@ -27,6 +27,9 @@ const userSchema = mongoose.Schema(
       default:
         "https://res.cloudinary.com/dalyf3pd9/image/upload/v1775195871/defaultProfile_msyvst.webp",
     },
+    imagePublicId: {
+      type: String,
+    },
   },
   { timestamps: true },
 );

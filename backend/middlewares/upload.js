@@ -6,7 +6,10 @@ const storage = new CloudinaryStorage({
   cloudinary,
   params: {
     folder: "notes_profile_pictures",
-    allowed_formats: ["jpg", "png", "jpeg"],
+    allowed_formats: ["jpg", "png", "jpeg", "webp"],
+  },
+  limits: {
+    filesize: 2 * 1024 * 1024,
   },
 });
 
