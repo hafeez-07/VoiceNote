@@ -13,6 +13,7 @@ import useAuth from "../hooks/useAuth.ts";
 import ProtectedRoutes from "./components/ProtectedRoutes.tsx";
 import Settings from "./pages/Settings.tsx";
 import Note from "./pages/Note.tsx";
+import NotFound from "./pages/NotFound.tsx";
 
 function App() {
   const [notes, setNotes] = useState<NoteType[]>([]);
@@ -74,6 +75,10 @@ function App() {
         },
       ],
     },
+    {
+      path:"*",
+      element:<NotFound/>
+    }
   ]);
   return <RouterProvider router={router} />;
 }

@@ -37,10 +37,12 @@ const EditNote = ({ setNotes, notes }: Props) => {
           setTitle(note.title);
           setBody(note.body);
         } catch (err) {
-          toast.error("Note not found", {
-            duration: 2000,
+          navigate("/app", {
+            replace: true,
           });
-          navigate("/app");
+          toast.error("Note not found", {
+            duration: 1000,
+          });
         }
       };
       fetchNote();
