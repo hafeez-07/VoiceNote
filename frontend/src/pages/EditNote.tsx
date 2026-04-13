@@ -1,12 +1,12 @@
 import { useEffect, useState } from "react";
 import { toast } from "sonner";
-import type { Note } from "../types/note";
+import type { NoteType } from "../types/note";
 import { updateNote, getNote } from "../api/notesApi";
 import { useNavigate, useParams } from "react-router-dom";
 
 type Props = {
-  notes: Note[];
-  setNotes: React.Dispatch<React.SetStateAction<Note[]>>;
+  notes: NoteType[];
+  setNotes: React.Dispatch<React.SetStateAction<NoteType[]>>;
 };
 
 const EditNote = ({ setNotes, notes }: Props) => {
@@ -18,7 +18,7 @@ const EditNote = ({ setNotes, notes }: Props) => {
 
   useEffect(() => {
     if (!id) {
-      navigate("/");
+      navigate("/app");
       return;
     }
 
@@ -40,7 +40,7 @@ const EditNote = ({ setNotes, notes }: Props) => {
           toast.error("Note not found", {
             duration: 2000,
           });
-          navigate("/");
+          navigate("/app");
         }
       };
       fetchNote();
@@ -73,9 +73,9 @@ const EditNote = ({ setNotes, notes }: Props) => {
         ),
     );
 
-    navigate("/app");
-    toast.success("updated succesfully", {
-      duration: 2000,
+    navigate(-1);
+    toast.success("updated successfully", {
+      duration: 1000,
     });
   };
 

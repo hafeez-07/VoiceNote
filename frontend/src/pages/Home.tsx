@@ -1,10 +1,10 @@
 import NoteForm from "../components/NoteForm";
 import Notes from "../components/Notes";
-import type { Note } from "../types/note";
+import type { NoteType } from "../types/note";
 
 type Props = {
-  notes: Note[];
-  setNotes: React.Dispatch<React.SetStateAction<Note[]>>;
+  notes: NoteType[];
+  setNotes: React.Dispatch<React.SetStateAction<NoteType[]>>;
 };
 
 const Home = ({ notes, setNotes }: Props) => {

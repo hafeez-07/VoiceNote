@@ -1,6 +1,6 @@
 import { fetchNotes } from "./api/notesApi.ts";
 import { useEffect, useState } from "react";
-import type { Note } from "./types/note.ts";
+import type { NoteType } from "./types/note.ts";
 
 import Home from "./pages/Home.tsx";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
@@ -12,9 +12,10 @@ import Landing from "./pages/Landing.tsx";
 import useAuth from "../hooks/useAuth.ts";
 import ProtectedRoutes from "./components/ProtectedRoutes.tsx";
 import Settings from "./pages/Settings.tsx";
+import Note from "./pages/Note.tsx";
 
 function App() {
-  const [notes, setNotes] = useState<Note[]>([]);
+  const [notes, setNotes] = useState<NoteType[]>([]);
   const { user } = useAuth();
 
   useEffect(() => {
@@ -41,6 +42,10 @@ function App() {
             {
               index: true,
               element: <Home notes={notes} setNotes={setNotes} />,
+            },
+            {
+              path: "note/:id",
+              element: <Note notes={notes} setNotes={setNotes} />,
             },
             {
               path: "edit/:id",

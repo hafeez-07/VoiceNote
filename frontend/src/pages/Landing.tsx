@@ -26,7 +26,6 @@ const Landing = () => {
     e.preventDefault();
     try {
       const userData = await loginUser(formData);
-
       setUser(userData);
       navigate("/app");
     } catch (err: unknown) {

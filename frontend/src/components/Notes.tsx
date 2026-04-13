@@ -1,19 +1,19 @@
 import { FaTrash, FaPen } from "react-icons/fa";
-import type { Note } from "../types/note";
+import type { NoteType } from "../types/note";
 import { deleteNote, deleteAll } from "../api/notesApi";
 import { toast } from "sonner";
 import { useRef } from "react";
 import { Link } from "react-router-dom";
 
 type NoteProps = {
-  notes: Note[];
-  setNotes: React.Dispatch<React.SetStateAction<Note[]>>;
+  notes: NoteType[];
+  setNotes: React.Dispatch<React.SetStateAction<NoteType[]>>;
 };
 
 const Notes = ({ notes, setNotes }: NoteProps) => {
   const deleteTimeout = useRef<ReturnType<typeof setTimeout> | null>(null);
   const deleteOneNote = async (id: string) => {
-    //save notes , incase if the delete fails
+    //save notes , in case if the delete fails
     const previousNotes = [...notes];
 
     toast.warning("Confirm delete?", {
@@ -28,7 +28,7 @@ const Notes = ({ notes, setNotes }: NoteProps) => {
           } catch (err) {
             setNotes(previousNotes);
           }
-          toast.success("Deleted succesfully", {
+          toast.success("Deleted successfully", {
             duration: 2000,
           });
         },
@@ -104,14 +104,16 @@ const Notes = ({ notes, setNotes }: NoteProps) => {
           {notes.map((note) => (
             <div
               key={note._id}
-              className="mt-5 flex flex-col space-y-3 rounded-xl border border-white/10 bg-white/5 p-5 shadow-lg shadow-black backdrop-blur-md transition-all duration-300 hover:scale-[1.02]"
+              className="mt-5 flex flex-col rounded-xl border border-white/10 bg-white/5 p-5 shadow-lg shadow-black backdrop-blur-md transition-all duration-300 hover:scale-[1.02]"
             >
-              <h4 className="border-zinc-700 pb-1 text-lg font-semibold">
-                {note.title}
-              </h4>
-              <div className="line-clamp-3 grow border-zinc-700 text-sm">
-                {note.body}
-              </div>
+              <Link className="mb-3 space-y-3" to={`note/${note._id}`}>
+                <h4 className="border-zinc-700 pb-1 text-lg font-semibold">
+                  {note.title}
+                </h4>
+                <div className="line-clamp-3 grow border-zinc-700 text-sm">
+                  {note.body}
+                </div>
+              </Link>
               <div className="mt-auto flex justify-between text-xs">
                 <div>
                   {new Date(note.updatedAt).toLocaleDateString("en-US", {
@@ -121,11 +123,13 @@ const Notes = ({ notes, setNotes }: NoteProps) => {
                   })}
                 </div>
                 <div className="flex gap-3">
-                  <button className="rounded transition-all duration-300 hover:cursor-pointer hover:text-blue-500">
-                    <Link to={`edit/${note._id}`}>
-                      <FaPen className="text-sky-400 transition duration-300 ease-in hover:text-sky-600" />
-                    </Link>
-                  </button>
+                  <Link
+                    to={`edit/${note._id}`}
+                    className="rounded transition-all duration-300 hover:cursor-pointer hover:text-blue-500"
+                  >
+                    <FaPen className="text-sky-400 transition duration-300 ease-in hover:text-sky-600" />
+                  </Link>
+
                   <button className="rounded transition-all duration-300 hover:cursor-pointer hover:text-red-500">
                     <FaTrash
                       className="text-zinc-500 transition duration-300 ease-in hover:text-zinc-300"

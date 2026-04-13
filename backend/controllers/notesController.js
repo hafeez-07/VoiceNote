@@ -125,7 +125,7 @@ export const getNote = async (req, res) => {
   try {
     const { id } = req.params;
     const note = await Note.findOne({ _id: id, userId: req.userId }).select(
-      "title body",
+      "title body updatedAt",
     );
     if (!note) {
       return res.status(404).json({
