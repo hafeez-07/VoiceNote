@@ -6,7 +6,7 @@ export const protect = (req, res, next) => {
 
     if (!token) {
       return res.status(401).json({
-        error: "Unauthorized",
+        error: "Please log in first",
       });
     }
 

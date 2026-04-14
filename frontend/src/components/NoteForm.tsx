@@ -1,10 +1,10 @@
 import React, { useState } from "react";
-import type { Note } from "../types/note";
+import type { NoteType } from "../types/note";
 import { createNote } from "../api/notesApi";
 import { toast } from "sonner";
 
 type Props = {
-  setNotes: React.Dispatch<React.SetStateAction<Note[]>>;
+  setNotes: React.Dispatch<React.SetStateAction<NoteType[]>>;
 };
 
 const NoteForm = ({ setNotes }: Props) => {
@@ -35,7 +35,7 @@ const NoteForm = ({ setNotes }: Props) => {
           new Date(b.updatedAt).getTime() - new Date(a.updatedAt).getTime(),
       ),
     );
-    toast.success("Added succesfully", {
+    toast.success("Added successfully", {
       duration: 2000,
     });
 
@@ -56,7 +56,7 @@ const NoteForm = ({ setNotes }: Props) => {
           value={title}
           placeholder="Title"
           onChange={(e) => setTitle(e.target.value)}
-          className="input-field"
+          className="auth-input-field"
         />
         <textarea
           rows={3}

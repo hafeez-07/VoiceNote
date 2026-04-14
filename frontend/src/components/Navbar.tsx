@@ -1,22 +1,24 @@
 import { NavLink, useNavigate } from "react-router-dom";
 import { logoutUser } from "../api/authApi";
-import type { Note } from "../types/note";
+import type { NoteType } from "../types/note";
 import useAuth from "../../hooks/useAuth.ts";
 
 type Props = {
-  setNotes: React.Dispatch<React.SetStateAction<Note[]>>;
+  setNotes: React.Dispatch<React.SetStateAction<NoteType[]>>;
 };
 
 const Navbar = ({ setNotes }: Props) => {
   const navigate = useNavigate();
-  const { user, setUser } = useAuth();
+  const { setUser } = useAuth();
 
   const handleLogout = async () => {
     try {
       await logoutUser();
       setNotes([]);
+      navigate("/", {
+        replace: true,
+      });
       setUser(null);
-      navigate("/");
     } catch (err) {
       throw new Error("Something went wrong");
     }

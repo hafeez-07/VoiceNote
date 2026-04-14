@@ -6,7 +6,7 @@ import { toast } from "sonner";
 import useAuth from "../../hooks/useAuth.ts";
 import type { RegisterError } from "../types/error.ts";
 import { isApiError } from "../utils/api.ts";
-import illustration from "../../public/images/note_illustration.png";
+import illustration from "../assets/illustration.png";
 import { FaCheck } from "react-icons/fa";
 
 const Register = () => {
@@ -58,96 +58,6 @@ const Register = () => {
       }
     }
   };
-
-  //   return (
-  //     <div className="flex items-center justify-between min-h-screen w-screen bg-linear-to-tr from-zinc-600 to-zinc-700 via-zinc-800">
-  //       <div className="mx-auto w-md rounded-2xl border border-white/10 bg-white/20 p-5 shadow-2xl backdrop-blur-lg">
-  //         <h2 className="mt-2 mb-8 text-center text-3xl font-semibold">
-  //           Register Account
-  //         </h2>
-  //         <form onSubmit={handleSubmit} className="flex flex-col gap-5">
-  //           {errors.general && (
-  //             <div className="error-message text-center">{errors.general}</div>
-  //           )}
-
-  //           <input
-  //             type="text"
-  //             name="fullname"
-  //             value={formData.fullname}
-  //             onChange={handleChange}
-  //             placeholder="Full Name"
-  //             className="input-field"
-  //           />
-
-  //           <div className="flex flex-col">
-  //             <input
-  //               type="text"
-  //               name="username"
-  //               value={formData.username}
-  //               onChange={handleChange}
-  //               placeholder="Username"
-  //               className="input-field"
-  //               required
-  //             />
-  //             <div
-  //               aria-live="polite"
-  //               className={`overflow-hidden transition-all duration-300 ease-out ${
-  //                 errors.username
-  //                   ? "mt-1 max-h-8 opacity-100"
-  //                   : "mt-0 max-h-0 opacity-0"
-  //               }`}
-  //             >
-  //               <p className="error-message">{errors.username}</p>
-  //             </div>
-  //           </div>
-
-  //           <div className="flex flex-col">
-  //             <input
-  //               type="email"
-  //               name="email"
-  //               value={formData.email}
-  //               onChange={handleChange}
-  //               placeholder="email"
-  //               className="input-field"
-  //               required
-  //             />
-  //             <div
-  //               aria-live="polite"
-  //               className={`overflow-hidden transition-all duration-300 ease-out ${
-  //                 errors.email
-  //                   ? "mt-1 max-h-8 opacity-100"
-  //                   : "mt-0 max-h-0 opacity-0"
-  //               }`}
-  //             >
-  //               <p className="error-message">{errors.email}</p>
-  //             </div>
-  //           </div>
-  //           <input
-  //             type="password"
-  //             name="password"
-  //             value={formData.password}
-  //             onChange={handleChange}
-  //             placeholder="password"
-  //             className="input-field"
-  //             required
-  //           />
-  //           <input
-  //             type="submit"
-  //             value="Register"
-  //             className="submit-button px-1"
-  //           />
-  //         </form>
-  //         <div className="mt-2 text-center">
-  //           Already have an account?
-  //           <Link to="/" className="text-blue-600">
-  //             {" "}
-  //             login
-  //           </Link>
-  //         </div>
-  //       </div>
-  //     </div>
-  //   );
-  // };
 
   return (
     <div className="flex min-h-screen w-screen bg-black">
@@ -257,7 +167,7 @@ const Register = () => {
             <input
               type="submit"
               value="Register"
-              className="auth-submit-button "
+              className="auth-submit-button"
             />
           </form>
 
