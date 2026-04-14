@@ -3,6 +3,9 @@ import { useState } from "react";
 import type { LoggedInUser } from "../types/user";
 import { loginUser } from "../api/authApi";
 import useAuth from "../../hooks/useAuth";
+import illustration from "../../public/images/note_illustration.png";
+import { FaCheck } from "react-icons/fa";
+import { RxDividerVertical } from "react-icons/rx";
 
 const Landing = () => {
   const [formData, setFormData] = useState<LoggedInUser>({
@@ -22,58 +25,108 @@ const Landing = () => {
   };
 
   const submitHandler = async (e: React.FormEvent<HTMLFormElement>) => {
-    setError("");
     e.preventDefault();
+    setError("");
     try {
       const userData = await loginUser(formData);
       setUser(userData);
       navigate("/app");
     } catch (err: unknown) {
-      setError(err instanceof Error ? err.message : "could not login");
+      setError(err instanceof Error ? err.message : "Could not login");
     }
   };
 
   return (
-    <div className="mx-auto w-4xl rounded-2xl bg-black p-5 shadow-zinc-500 transition-all duration-300 ease-in hover:shadow-lg">
-      <div className="flex gap-5">
-        <div className="hidden flex-col justify-center gap-2 text-center font-serif text-3xl md:flex">
-          <h1>Welcome to notes app</h1>
-          <p>Organize your thoughts efficiently</p>
-          <p></p>
+    <div className="flex min-h-screen w-screen bg-black">
+     
+      {/* LEFT SIDE (60%) */}
+      <div className="relative hidden h-screen w-[60%] items-center justify-center overflow-hidden bg-black md:flex ">
+        {/* Image */}
+        <img
+          src={illustration}
+          alt="Notes illustration"
+          className="h-screen w-full object-cover opacity-80"
+        />
+        <div className="absolute top-20 flex flex-col gap-4 px-4">
+          <h2 className="text-4xl font-bold text-orange-500">
+            Capture your ideas ✍🏻
+          </h2>
+          <p className="text-xl font-semibold text-zinc-400">
+            Write, organize and access your notes anytime, anywhere
+          </p>
+          <div className="flex flex-col gap-1 text-zinc-400">
+            <div className="flex items-center gap-2">
+              <FaCheck className="text-orange-500"/>
+              <p>Fast & simple note taking</p>
+            </div>
+            <div className="flex items-center gap-2">
+              <FaCheck className="text-orange-500"/>
+              <p>Secure authentication</p>
+            </div>
+            <div className="flex items-center gap-2">
+              <FaCheck className="text-orange-500"/>
+              <p>Clean & distraction free UI</p>
+            </div>
+          </div>
         </div>
-        <div className="grow">
-          <h2 className="mb-2 p-2 text-xl">Log in to notes app</h2>
-          <form onSubmit={submitHandler} className="flex flex-col gap-5">
+      </div>
+
+      {/* RIGHT SIDE (40%) */}
+      <div className=" relative flex h-screen w-full items-center justify-center bg-linear-to-br from-zinc-900 via-zinc-800 to-black px-6 md:w-[40%] overflow-hidden">
+      
+      <div className="absolute   -left-20 top-1/2 h -translate-y-1/2 h-100 w-100 bg-orange-500/20 blur-3xl rounded-full"></div>
+       <div className="relative w-full max-w-md rounded-2xl border border-white/10 bg-white/5 p-8 shadow-2xl backdrop-blur-xl overflow-hidden">
+     
+  
+          <h2 className="mb-6 text-center text-xl font-semibold text-white">
+            Log in to your account
+          </h2>
+
+          <form onSubmit={submitHandler} className="flex flex-col gap-4">
+            {/* ERROR */}
             <div
-              className={`error-message overflow-hidden text-center transition duration-300 ease-out ${error ? "max-h-8 opacity-100" : "max-h-0 opacity-0"} `}
+              className={`overflow-hidden text-center text-sm text-red-400 transition-all duration-300 ease-out ${
+                error ? "max-h-8 opacity-100" : "max-h-0 opacity-0"
+              }`}
             >
               {error}
             </div>
+
+            {/* EMAIL */}
             <input
               type="email"
               name="email"
               value={formData.email}
               onChange={handleChange}
-              placeholder="email"
-              className="input-field"
+              placeholder="Email address"
               required
+              className="rounded-lg border border-zinc-700 bg-zinc-800/50 px-4 py-3 text-white transition-all outline-none focus:border-orange-500 focus:ring-2 focus:ring-orange-500/30"
             />
+
+            {/* PASSWORD */}
             <input
               type="password"
               name="password"
               value={formData.password}
               onChange={handleChange}
-              placeholder="password"
-              className="input-field"
+              placeholder="Password"
               required
+              className="rounded-lg border border-zinc-700 bg-zinc-800/50 px-4 py-3 text-white transition-all outline-none focus:border-orange-500 focus:ring-2 focus:ring-orange-500/30"
             />
-            <input type="submit" value="Login" className="submit-button px-1" />
+
+            {/* BUTTON */}
+            <button
+              type="submit"
+              className="rounded-lg bg-orange-500 py-3 font-medium text-white shadow-lg shadow-orange-500/30 transition-all hover:scale-[1.02] hover:bg-orange-600"
+            >
+              Login
+            </button>
           </form>
-          <div className="mt-2 text-center">
-            Don't have an account?
-            <Link to="/register" className="text-blue-600">
-              {" "}
-              sign in
+
+          <div className="mt-4 text-center text-sm text-zinc-400">
+            Don’t have an account?{" "}
+            <Link to="/register" className="text-orange-400 hover:underline">
+              Sign up
             </Link>
           </div>
         </div>
