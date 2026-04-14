@@ -2,6 +2,7 @@ import { NavLink, useNavigate } from "react-router-dom";
 import { logoutUser } from "../api/authApi";
 import type { NoteType } from "../types/note";
 import useAuth from "../../hooks/useAuth.ts";
+import logo from "../assets/VaultNote.png";
 
 type Props = {
   setNotes: React.Dispatch<React.SetStateAction<NoteType[]>>;
@@ -25,9 +26,13 @@ const Navbar = ({ setNotes }: Props) => {
   };
 
   return (
-    <div className="border-b border-zinc-600 bg-gray-950 px-5 py-2 text-white">
+    <div className="border-b border-zinc-600 bg-black px-5 py-2 text-white">
       <div className="mx-auto flex items-center justify-between">
-        <h1 className="text-2xl font-bold">Notes App</h1>
+        <div className="flex items-center">
+          <img src={logo} className="h-12"/>
+          <h1 className="text-2xl text-orange-400 font-serif font-bold">VoiceNote</h1>
+        </div>
+
 
         <div className="flex items-center gap-5">
           <NavLink to="/app" className="hover:text-orange-400">
