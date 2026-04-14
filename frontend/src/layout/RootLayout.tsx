@@ -12,7 +12,7 @@ const RootLayout = ({ setNotes }: Props) => {
   return (
     <div className="flex min-h-screen flex-col">
       <Navbar setNotes={setNotes} />
-      <main className="grow bg-linear-to-bl from-zinc-900 to-zinc-800 py-8 text-white">
+      <main className="grow bg-linear-to-br from-zinc-900 via-black to-zinc-950 py-8 text-white">
         
         <Outlet />
       </main>
