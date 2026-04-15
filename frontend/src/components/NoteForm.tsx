@@ -64,7 +64,7 @@ const NoteForm = ({ setNotes }: Props) => {
           value={body}
           onChange={textAreaHandler}
           placeholder="write your note here.."
-          className="auth-input-field max-h-60 resize-none"
+          className="auth-input-field max-h-60  resize-none"
         ></textarea>
         <input className="submit-button" type="submit" value="Save Note" />
       </form>

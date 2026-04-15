@@ -94,7 +94,7 @@ const EditNote = ({ setNotes, notes }: Props) => {
           value={title}
           placeholder="Title"
           onChange={(e) => setTitle(e.target.value)}
-          className="input-field"
+          className="auth-input-field"
         />
         <textarea
           rows={3}
@@ -102,7 +102,7 @@ const EditNote = ({ setNotes, notes }: Props) => {
           value={body}
           onChange={textAreaHandler}
           placeholder="write your note here.."
-          className="input-field max-h-90 resize-none"
+          className="auth-input-field max-h-90 resize-none"
         ></textarea>
         <input className="submit-button" type="submit" value="update" />
       </form>

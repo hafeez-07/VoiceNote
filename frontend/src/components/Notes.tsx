@@ -105,17 +105,17 @@ const Notes = ({ notes, setNotes }: NoteProps) => {
           {notes.map((note) => (
             <div
               key={note._id}
-              className="mt-5 flex flex-col rounded-xl border border-white/10 bg-white/10 p-5 shadow-lg shadow-black backdrop-blur-md transition-all duration-300 hover:scale-[1.02]"
+              className="mt-5 flex flex-col rounded-xl border border-white/10 bg-white/10 shadow-lg shadow-black backdrop-blur-md transition-all duration-300 hover:scale-[1.02]"
             >
               <Link className="mb-3 space-y-3" to={`note/${note._id}`}>
-                <h4 className="border-zinc-700 pb-1 text-xl font-semibold">
+                <h4 className="px-6 py-3 border-b border-zinc-700  text-xl font-semibold">
                   {note.title}
                 </h4>
-                <div className="line-clamp-3 grow border-zinc-700 text-sm">
+                <div className="px-6 line-clamp-3 grow  text-sm whitespace-pre-line leading-relaxed">
                   {note.body}
                 </div>
               </Link>
-              <div className="mt-auto flex justify-between text-xs">
+              <div className="bg-white/10 rounded-b-xl  border-t border-zinc-500 px-6 py-2 mt-auto flex justify-between text-xs">
                 <div>
                   {new Date(note.updatedAt).toLocaleDateString("en-US", {
                     day: "numeric",
@@ -123,7 +123,7 @@ const Notes = ({ notes, setNotes }: NoteProps) => {
                     year: "numeric",
                   })}
                 </div>
-                <div className="flex gap-3">
+                <div className="flex items-center gap-3">
                   <Link
                     to={`edit/${note._id}`}
                     className="rounded transition-all duration-300 hover:cursor-pointer hover:text-blue-500"

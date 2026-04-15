@@ -3,6 +3,7 @@ import { logoutUser } from "../api/authApi";
 import type { NoteType } from "../types/note";
 import useAuth from "../../hooks/useAuth.ts";
 import logo from "../assets/VaultNote.png";
+import { FiLogOut } from "react-icons/fi";
 
 type Props = {
   setNotes: React.Dispatch<React.SetStateAction<NoteType[]>>;
@@ -41,8 +42,8 @@ const Navbar = ({ setNotes }: Props) => {
           <NavLink to="settings" className="hover:text-orange-400">
             Settings
           </NavLink>
-          <button onClick={handleLogout} className="destructive-button">
-            Logout
+          <button onClick={handleLogout} className="hover:scale-110 hover:text-orange-400">
+            <FiLogOut/>
           </button>
         </div>
       </div>

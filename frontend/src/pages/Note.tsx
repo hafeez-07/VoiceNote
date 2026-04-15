@@ -74,14 +74,14 @@ const Note = ({ notes, setNotes }: NoteProps) => {
 
   return (
     <div className="mx-auto max-w-5xl px-5">
-      <div className="mt-5 flex flex-col space-y-3 rounded-xl border border-white/10 bg-white/5 p-5 shadow-lg shadow-black backdrop-blur-md transition-all duration-300">
-        <h4 className="border-zinc-700 pb-1 text-3xl font-semibold">
+      <div className="mt-5 flex flex-col space-y-3 rounded-xl border border-white/10 bg-white/5  shadow-lg shadow-black backdrop-blur-md transition-all duration-300">
+        <h4 className="px-6 border-b py-3 border-zinc-700  text-3xl font-semibold">
           {note.title}
         </h4>
-        <div className="line-clamp-3 grow border-zinc-700 text-md">
+        <div className="px-6 grow border-zinc-700 text-md whitespace-pre-line leading-relaxed">
           {note.body}
         </div>
-        <div className="mt-auto flex justify-between text-sm">
+        <div className="px-6 py-3 rounded-b-xl bg-white/10 border-zinc-700 mt-auto flex justify-between text-sm border-t">
           <div>
             {new Date(note.updatedAt).toLocaleDateString("en-US", {
               day: "numeric",
@@ -89,12 +89,12 @@ const Note = ({ notes, setNotes }: NoteProps) => {
               year: "numeric",
             })}
           </div>
-          <div className="flex gap-3">
+          <div className="flex items-center gap-4">
             <Link
               to={`/app/edit/${note._id}`}
               className="rounded transition-all duration-300 hover:cursor-pointer hover:text-blue-500"
             >
-              <FaPen className="text-sky-400 transition duration-300 ease-in hover:text-sky-600" />
+              <FaPen className="text-sky-600 transition duration-300 ease-in hover:text-sky-400 " />
             </Link>
 
             <button className="rounded transition-all duration-300 hover:cursor-pointer hover:text-red-500">

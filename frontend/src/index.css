@@ -8,7 +8,7 @@
     @apply rounded-lg bg-orange-500 py-3 font-medium text-white shadow-lg shadow-orange-500/30 transition-all duration-300 ease-in hover:scale-[1.02] hover:bg-orange-600;
   }
   .submit-button {
-    @apply rounded-lg bg-orange-500 py-3 font-medium text-white transition-all duration-300 ease-in hover:scale-[1.02] hover:bg-orange-600;
+    @apply rounded-lg bg-orange-500 py-3 font-medium text-white shadow-lg transition-all duration-300 ease-in hover:scale-[1.02] hover:bg-orange-600 hover:shadow-orange-500/20 active:scale-95;
   }
   .destructive-button {
     @apply cursor-pointer rounded bg-red-500 px-1 py-0.5 text-white transition duration-300 hover:opacity-80;

@@ -38,7 +38,7 @@ const Landing = () => {
   };
 
   return (
-    <div className="flex min-h-screen w-screen bg-black">
+    <div className="flex min-h-screen w-screen ">
       {/* LEFT SIDE (60%) */}
       <div className="relative hidden h-screen w-[60%] items-center justify-center overflow-hidden bg-black md:flex">
         {/* Image */}

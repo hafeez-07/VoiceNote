@@ -200,7 +200,7 @@ const Settings = () => {
               name="username"
               value={formData.username}
               onChange={inputHandler}
-              className="input-field"
+              className="auth-input-field"
             />
           </div>
           <div className="grid gap-1">
@@ -210,7 +210,7 @@ const Settings = () => {
               name="fullname"
               value={formData.fullname}
               onChange={inputHandler}
-              className="input-field"
+              className="auth-input-field"
             />
           </div>
           <div className="grid gap-1">
@@ -220,7 +220,8 @@ const Settings = () => {
               name="email"
               value={formData.email}
               onChange={inputHandler}
-              className="input-field"
+              className="auth-input-field"
+              disabled
             />
           </div>
           <div className="grid gap-1">
@@ -230,23 +231,25 @@ const Settings = () => {
               name="age"
               value={formData.age}
               onChange={inputHandler}
-              className="input-field"
+              className="auth-input-field"
             />
           </div>
           <input type="submit" className="submit-button" />
         </form>
       </div>
       <div className="mt-10 rounded border border-red-950 bg-red-900/20 p-5">
-        <h3 className="text-xl text-red-600">Danger zone ⚠️</h3>
+        <div className=" flex justify-between">
+          <h3 className="text-xl text-red-600">Danger zone ⚠️</h3>
+          <button onClick={deleteAccountHandler} className="destructive-button">
+            Delete Account
+          </button>
+        </div>
 
         <div className="mt-3 flex justify-between">
           <p className="text-red-400">
             This action is irreversible. Your account and all associated data
             will be permanently deleted.
           </p>
-          <button onClick={deleteAccountHandler} className="destructive-button">
-            Delete Account
-          </button>
         </div>
       </div>
     </div>
