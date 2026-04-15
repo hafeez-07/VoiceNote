@@ -55,7 +55,6 @@ const Note = ({ notes, setNotes }: NoteProps) => {
             duration: 1000,
           });
         },
-  
       },
       cancel: {
         label: "cancel",
@@ -69,19 +68,45 @@ const Note = ({ notes, setNotes }: NoteProps) => {
   }
 
   if (!note) {
-    return <div className="mt-5 text-sm text-zinc-400">Loading note...</div>;
+    return (
+      <div
+        className="mx-auto max-w-5xl animate-pulse px-5"
+        aria-busy="true"
+        aria-live="polite"
+      >
+        <div className="mt-5 flex flex-col space-y-3 rounded-xl border border-white/10 bg-white/5 p-0 shadow-lg shadow-black backdrop-blur-md">
+          <div className="border-b border-zinc-700 px-6 py-3">
+            <div className="h-9 w-3/5 rounded bg-zinc-800" />
+          </div>
+          <div className="space-y-3 px-6 py-2">
+            <div className="h-4 w-full rounded bg-zinc-800" />
+            <div className="h-4 w-11/12 rounded bg-zinc-800" />
+            <div className="h-4 w-10/12 rounded bg-zinc-800" />
+            <div className="h-4 w-9/12 rounded bg-zinc-800" />
+            <div className="h-4 w-4/5 rounded bg-zinc-800" />
+          </div>
+          <div className="mt-auto flex items-center justify-between border-t border-zinc-700 bg-white/10 px-6 py-3">
+            <div className="h-4 w-24 rounded bg-zinc-800" />
+            <div className="flex items-center gap-4">
+              <div className="h-4 w-4 rounded bg-zinc-800" />
+              <div className="h-4 w-4 rounded bg-zinc-800" />
+            </div>
+          </div>
+        </div>
+      </div>
+    );
   }
 
   return (
     <div className="mx-auto max-w-5xl px-5">
-      <div className="mt-5 flex flex-col space-y-3 rounded-xl border border-white/10 bg-white/5  shadow-lg shadow-black backdrop-blur-md transition-all duration-300">
-        <h4 className="px-6 border-b py-3 border-zinc-700  text-3xl font-semibold">
+      <div className="mt-5 flex flex-col space-y-3 rounded-xl border border-white/10 bg-white/5 shadow-lg shadow-black backdrop-blur-md transition-all duration-300">
+        <h4 className="border-b border-zinc-700 px-6 py-3 text-3xl font-semibold">
           {note.title}
         </h4>
-        <div className="px-6 grow border-zinc-700 text-md whitespace-pre-line leading-relaxed">
+        <div className="text-md grow border-zinc-700 px-6 leading-relaxed whitespace-pre-line">
           {note.body}
         </div>
-        <div className="px-6 py-3 rounded-b-xl bg-white/10 border-zinc-700 mt-auto flex justify-between text-sm border-t">
+        <div className="mt-auto flex justify-between rounded-b-xl border-t border-zinc-700 bg-white/10 px-6 py-3 text-sm">
           <div>
             {new Date(note.updatedAt).toLocaleDateString("en-US", {
               day: "numeric",
@@ -94,7 +119,7 @@ const Note = ({ notes, setNotes }: NoteProps) => {
               to={`/app/edit/${note._id}`}
               className="rounded transition-all duration-300 hover:cursor-pointer hover:text-blue-500"
             >
-              <FaPen className="text-sky-600 transition duration-300 ease-in hover:text-sky-400 " />
+              <FaPen className="text-sky-600 transition duration-300 ease-in hover:text-sky-400" />
             </Link>
 
             <button className="rounded transition-all duration-300 hover:cursor-pointer hover:text-red-500">
