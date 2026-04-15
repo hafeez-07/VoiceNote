@@ -1,12 +1,19 @@
 import useAuth from "../../hooks/useAuth";
 import { Navigate, Outlet, useLocation } from "react-router-dom";
-import Skeleton from "./Skeleton";
+import HomeSkeleton from "./HomeSkeleton";
+import SettingsSkeleton from "./SettingsSkeleton";
 
 const ProtectedRoutes = () => {
   const { loading, user } = useAuth();
   const location = useLocation();
 
-  if (loading) return <Skeleton />;
+  if (loading) {
+    if (location.pathname.startsWith("/app/settings")) {
+      return <SettingsSkeleton />;
+    }
+
+    return <HomeSkeleton />;
+  }
   if (!user) {
     return (
       <Navigate
