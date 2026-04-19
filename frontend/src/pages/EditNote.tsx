@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { toast } from "sonner";
 import type { NoteType } from "../types/note";
 import { updateNote, getNote } from "../api/notesApi";
@@ -15,6 +15,7 @@ const EditNote = ({ setNotes, notes }: Props) => {
 
   const [title, setTitle] = useState("");
   const [body, setBody] = useState("");
+  const resizeRef = useRef<HTMLTextAreaElement | null>(null);
 
   useEffect(() => {
     if (!id) {
@@ -49,11 +50,20 @@ const EditNote = ({ setNotes, notes }: Props) => {
     }
   }, [id, notes]);
 
+  useEffect(() => {
+    if (!resizeRef.current) return;
+    adjustHeight(resizeRef.current);
+  }, [body]);
+
   const textAreaHandler = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     const el = e.target;
+    adjustHeight(el);
+    setBody(el.value);
+  };
+
+  const adjustHeight = (el: HTMLTextAreaElement) => {
     el.style.height = "auto";
     el.style.height = el.scrollHeight + 4 + "px";
-    setBody(el.value);
   };
 
   const submitHandler = async (e: React.FormEvent<HTMLFormElement>) => {
@@ -97,6 +107,7 @@ const EditNote = ({ setNotes, notes }: Props) => {
           className="auth-input-field"
         />
         <textarea
+          ref={resizeRef}
           rows={3}
           name="body"
           value={body}
