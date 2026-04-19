@@ -111,7 +111,7 @@ const Notes = ({ notes, setNotes }: NoteProps) => {
                 <h4 className="px-6 py-3 border-b border-zinc-700  text-xl font-semibold">
                   {note.title}
                 </h4>
-                <div className="px-6 line-clamp-3 grow  text-sm whitespace-pre-line leading-relaxed">
+                <div className="min-h-16 px-6 line-clamp-3 grow  text-sm whitespace-pre-line leading-relaxed">
                   {note.body}
                 </div>
               </Link>

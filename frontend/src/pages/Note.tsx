@@ -103,9 +103,10 @@ const Note = ({ notes, setNotes }: NoteProps) => {
         <h4 className="border-b border-zinc-700 px-6 py-3 text-3xl font-semibold">
           {note.title}
         </h4>
-        <div className="text-md grow border-zinc-700 px-6 leading-relaxed whitespace-pre-line">
+        <div className="min-h-16 text-md grow border-zinc-700 px-6 leading-relaxed whitespace-pre-line">
           {note.body}
         </div>
+        
         <div className="mt-auto flex justify-between rounded-b-xl border-t border-zinc-700 bg-white/10 px-6 py-3 text-sm">
           <div>
             {new Date(note.updatedAt).toLocaleDateString("en-US", {
