@@ -175,7 +175,7 @@ const Settings = () => {
           </div>
           <button
             onClick={handleClick}
-            className="flex w-full cursor-pointer items-center gap-2 rounded bg-linear-to-br from-blue-500 to-blue-600 p-3 text-center"
+            className="flex w-full cursor-pointer items-center justify-center gap-2 rounded bg-linear-to-br from-blue-500 to-blue-600 p-3 text-center"
           >
             <FaCamera />
             <div>Change photo</div>
@@ -238,7 +238,7 @@ const Settings = () => {
         </form>
       </div>
       <div className="mt-10 rounded border border-red-950 bg-red-900/20 p-5">
-        <div className=" flex justify-between">
+        <div className="flex justify-between">
           <h3 className="text-xl text-red-600">Danger zone ⚠️</h3>
           <button onClick={deleteAccountHandler} className="destructive-button">
             Delete Account

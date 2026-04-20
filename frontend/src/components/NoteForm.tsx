@@ -10,6 +10,7 @@ type Props = {
 const NoteForm = ({ setNotes }: Props) => {
   const [title, setTitle] = useState("");
   const [body, setBody] = useState("");
+  const [loading, setLoading] = useState(false);
 
   const textAreaHandler = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     const el = e.target;
@@ -19,6 +20,7 @@ const NoteForm = ({ setNotes }: Props) => {
   };
 
   const submitHandler = async (e: React.FormEvent<HTMLFormElement>) => {
+    console.log("submitted");
     e.preventDefault();
     if (title.trim() === "" || body.trim() === "") {
       toast.error("Note title or content cannot be empty", {
@@ -27,7 +29,10 @@ const NoteForm = ({ setNotes }: Props) => {
       return;
     }
 
+    setLoading(true);
+
     const savedNote = await createNote({ title, body });
+    setLoading(false);
 
     setNotes((prev) =>
       [...prev, savedNote].sort(
@@ -45,11 +50,14 @@ const NoteForm = ({ setNotes }: Props) => {
 
   return (
     <div className="mx-auto max-w-5xl rounded-xl border border-white/20 bg-white/10 shadow-2xl backdrop-blur-2xl">
-      <h2 className="border-b border-zinc-700 px-4 sm:px-8 pt-6 pb-4 text-3xl font-semibold">
+      <h2 className="border-b border-zinc-700 px-4 pt-6 pb-4 text-3xl font-semibold sm:px-8">
         Create a Note
       </h2>
 
-      <form onSubmit={submitHandler} className="flex flex-col gap-2 px-4 sm:px-8 pb-8 pt-4">
+      <form
+        onSubmit={submitHandler}
+        className="flex flex-col gap-2 px-4 pt-4 pb-8 sm:px-8"
+      >
         <input
           type="text"
           name="title"
@@ -64,9 +72,19 @@ const NoteForm = ({ setNotes }: Props) => {
           value={body}
           onChange={textAreaHandler}
           placeholder="write your note here.."
-          className="auth-input-field max-h-60  resize-none"
+          className="auth-input-field max-h-60 resize-none"
         ></textarea>
-        <input className="submit-button" type="submit" value="Save Note" />
+        <button
+          disabled={loading}
+          className="submit-button flex items-center justify-center"
+          type="submit"
+        >
+          {loading ? (
+            <div className="h-4 w-4 animate-spin rounded-full border-2 border-t-transparent text-center"></div>
+          ) : (
+            "Add note"
+          )}
+        </button>
       </form>
     </div>
   );

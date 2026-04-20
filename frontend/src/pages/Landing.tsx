@@ -1,5 +1,5 @@
 import { Link, useLocation, useNavigate } from "react-router-dom";
-import { useState,  } from "react";
+import { useState } from "react";
 import type { LoggedInUser } from "../types/user";
 import { loginUser } from "../api/authApi";
 import useAuth from "../../hooks/useAuth";
@@ -12,6 +12,7 @@ const Landing = () => {
     password: "",
   });
   const [error, setError] = useState("");
+  const [loading, setLoading] = useState(false);
 
   const navigate = useNavigate();
   const location = useLocation();
@@ -26,19 +27,23 @@ const Landing = () => {
   };
 
   const submitHandler = async (e: React.FormEvent<HTMLFormElement>) => {
+    if (loading) return;
     e.preventDefault();
     setError("");
+    setLoading(true);
     try {
       const userData = await loginUser(formData);
       setUser(userData);
       navigate(location.state?.from || "/app");
     } catch (err: unknown) {
       setError(err instanceof Error ? err.message : "Could not login");
+    } finally {
+      setLoading(false);
     }
   };
 
   return (
-    <div className="flex min-h-screen w-screen ">
+    <div className="flex min-h-screen w-screen">
       {/* LEFT SIDE (60%) */}
       <div className="relative hidden h-screen w-[60%] items-center justify-center overflow-hidden bg-black md:flex">
         {/* Image */}
@@ -114,8 +119,16 @@ const Landing = () => {
             />
 
             {/* BUTTON */}
-            <button type="submit" className="auth-submit-button">
-              Login
+            <button
+              disabled={loading}
+              type="submit"
+              className="auth-submit-button flex items-center justify-center"
+            >
+              {loading ? (
+                <div className="h-4 w-4 animate-spin rounded-full border-2 border-t-transparent"></div>
+              ) : (
+                "Login"
+              )}
             </button>
           </form>
 

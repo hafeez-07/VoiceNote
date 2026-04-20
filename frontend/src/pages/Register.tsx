@@ -18,6 +18,7 @@ const Register = () => {
   });
 
   const [errors, setErrors] = useState<RegisterError>({});
+  const [loading, setLoading] = useState(false);
 
   const navigate = useNavigate();
   const { setUser } = useAuth();
@@ -30,8 +31,10 @@ const Register = () => {
   };
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    if (loading) return;
     e.preventDefault();
     setErrors({});
+    setLoading(true);
     try {
       const user = await registerUser(formData);
       toast.success("Registered successfully", {
@@ -56,6 +59,8 @@ const Register = () => {
           general: "something went wrong",
         });
       }
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -164,11 +169,17 @@ const Register = () => {
               className="auth-input-field"
               required
             />
-            <input
+            <button
+              disabled={loading}
               type="submit"
-              value="Register"
-              className="auth-submit-button"
-            />
+              className="auth-submit-button flex items-center justify-center"
+            >
+              {loading ? (
+                <div className="h-4 w-4 animate-spin rounded-full border-2 border-t-transparent"></div>
+              ) : (
+                "Register"
+              )}
+            </button>
           </form>
 
           <div className="mt-4 text-center text-sm text-zinc-400">
