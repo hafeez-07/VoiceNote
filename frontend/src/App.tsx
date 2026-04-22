@@ -77,9 +77,9 @@ function App() {
       ],
     },
     {
-      path:"*",
-      element:<NotFound/>
-    }
+      path: "*",
+      element: <NotFound />,
+    },
   ]);
   return (
     <>
