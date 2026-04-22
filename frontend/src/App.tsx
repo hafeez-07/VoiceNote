@@ -14,6 +14,7 @@ import ProtectedRoutes from "./components/ProtectedRoutes.tsx";
 import Settings from "./pages/Settings.tsx";
 import Note from "./pages/Note.tsx";
 import NotFound from "./pages/NotFound.tsx";
+import { Analytics } from "@vercel/analytics/react";
 
 function App() {
   const [notes, setNotes] = useState<NoteType[]>([]);
@@ -80,7 +81,12 @@ function App() {
       element:<NotFound/>
     }
   ]);
-  return <RouterProvider router={router} />;
+  return (
+    <>
+      <RouterProvider router={router} />
+      <Analytics />
+    </>
+  );
 }
 
 export default App;
