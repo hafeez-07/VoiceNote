@@ -45,10 +45,8 @@ const Register = () => {
       navigate("/app");
     } catch (err: unknown) {
       if (isApiError(err)) {
-        if (err.field) {
-          setErrors({
-            [err.field]: err.error,
-          });
+        if (err.errors) {
+          setErrors(err.errors);
         } else {
           setErrors({
             general: err.error,
@@ -110,14 +108,27 @@ const Register = () => {
             {errors.general && (
               <div className="error-message text-center">{errors.general}</div>
             )}{" "}
-            <input
-              type="text"
-              name="fullname"
-              value={formData.fullname}
-              onChange={handleChange}
-              placeholder="Full Name"
-              className="auth-input-field"
-            />
+            <div className="flex flex-col">
+              <input
+                type="text"
+                name="fullname"
+                value={formData.fullname}
+                onChange={handleChange}
+                placeholder="Full Name"
+                className="auth-input-field"
+                required
+              />
+              <div
+                aria-live="polite"
+                className={`overflow-hidden transition-all duration-300 ease-out ${
+                  errors.fullname
+                    ? "mt-1 max-h-8 opacity-100"
+                    : "mt-0 max-h-0 opacity-0"
+                }`}
+              >
+                <p className="error-message">{errors.fullname}</p>
+              </div>
+            </div>
             <div className="flex flex-col">
               <input
                 type="text"
@@ -160,15 +171,27 @@ const Register = () => {
                 <p className="error-message">{errors.email}</p>
               </div>
             </div>
-            <input
-              type="password"
-              name="password"
-              value={formData.password}
-              onChange={handleChange}
-              placeholder="password"
-              className="auth-input-field"
-              required
-            />
+            <div className="flex flex-col">
+              <input
+                type="password"
+                name="password"
+                value={formData.password}
+                onChange={handleChange}
+                placeholder="password"
+                className="auth-input-field"
+                required
+              />
+              <div
+                aria-live="polite"
+                className={`overflow-hidden transition-all duration-300 ease-out ${
+                  errors.password
+                    ? "mt-1 max-h-8 opacity-100"
+                    : "mt-0 max-h-0 opacity-0"
+                }`}
+              >
+                <p className="error-message">{errors.password}</p>
+              </div>
+            </div>
             <button
               disabled={loading}
               type="submit"

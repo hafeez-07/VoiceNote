@@ -1,4 +1,5 @@
 export type RegisterError = {
+  fullname?: string;
   username?: string;
   email?: string;
   password?: string;
@@ -6,6 +7,6 @@ export type RegisterError = {
 };
 
 export type ApiError = {
-  field?: string;
-  error: string;
+  errors?: Record<string, string>; //field error
+  error?: string; //general error
 };

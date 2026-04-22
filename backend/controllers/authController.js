@@ -7,13 +7,6 @@ export const registerUser = async (req, res) => {
   try {
     const { fullname, username, email, password } = req.body;
 
-    //validate input
-    if (!username || !email || !password) {
-      return res.status(400).json({
-        error: "All fields are required",
-      });
-    }
-
     //if user exist
 
     const existingUser = await User.findOne({
@@ -23,14 +16,16 @@ export const registerUser = async (req, res) => {
     if (existingUser) {
       if (existingUser.email === email) {
         return res.status(400).json({
-          field: "email",
-          error: "Email is already registered",
+          errors: {
+            email: "Email is already registered",
+          },
         });
       }
       if (existingUser.username === username) {
         return res.status(400).json({
-          field: "username",
-          error: "Username is not available",
+          errors: {
+            username: "Username is not available",
+          },
         });
       }
     }

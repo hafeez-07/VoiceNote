@@ -14,8 +14,9 @@ export const registerUser = async (user: RegisteredUser) => {
     body: JSON.stringify(user),
   });
   const data = await response.json();
+
   if (!response.ok) {
-    throw data;
+    throw { errors: data.errors };
   }
 
   return data;

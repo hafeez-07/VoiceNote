@@ -173,6 +173,7 @@ const Settings = () => {
             <MdEmail />
             <div>{user?.email}</div>
           </div>
+
           <button
             onClick={handleClick}
             className="flex w-full cursor-pointer items-center justify-center gap-2 rounded bg-linear-to-br from-blue-500 to-blue-600 p-3 text-center"
