@@ -39,23 +39,25 @@ Unlike basic CRUD demos, this project implements **real-world patterns** like co
 
 - JWT authentication stored in HTTP-only cookies.
 - Protected client-side routes and server-side authorization.
+- Registration validation with field-level error mapping for clean form feedback.
 - Full note CRUD scoped to the signed-in user.
 - Single-note read and edit flow for focused updates.
 - Bulk delete with confirmation and undo-friendly UI behavior.
 - Account settings for profile edits, avatar upload, and account deletion.
 - Cloudinary profile uploads with instant preview and cleanup of replaced images.
 - Field-specific API error handling for duplicate email and username cases.
-- Responsive dark UI with toast feedback and polished empty states.
+- Responsive dark UI with toast feedback, skeleton loading states, and polished empty states.
 
 ## ⚙️ Tech Stack
 
-| Area            | Stack                                                          |
-| --------------- | -------------------------------------------------------------- |
-| Frontend        | React 19, TypeScript, Vite, React Router DOM 7, Tailwind CSS 4 |
-| UI / Feedback   | Sonner, React Icons                                            |
-| Backend         | Node.js, Express 5, MongoDB, Mongoose                          |
-| Auth / Security | JWT, bcrypt, cookie-parser, CORS                               |
-| Media Uploads   | Multer, multer-storage-cloudinary, Cloudinary                  |
+| Area            | Stack                                                                            |
+| --------------- | -------------------------------------------------------------------------------- |
+| Frontend        | React 19, TypeScript, Vite, React Router DOM 7, Tailwind CSS 4, Vercel Analytics |
+| UI / Feedback   | Sonner, React Icons                                                              |
+| Backend         | Node.js, Express 5, MongoDB, Mongoose, Express Validator                         |
+| Auth / Security | JWT, bcrypt, cookie-parser, CORS                                                 |
+| Media Uploads   | Multer, multer-storage-cloudinary, Cloudinary                                    |
+| Tooling         | Prettier, prettier-plugin-tailwindcss                                            |
 
 > Built with a modern full-stack architecture focused on scalability, clean separation of concerns, and production-ready practices.
 
@@ -68,13 +70,14 @@ mern-notes-app/
 │   ├── server.js           # Server bootstrap
 │   ├── config/             # MongoDB and Cloudinary configuration
 │   ├── controllers/        # Auth, notes, and user handlers
-│   ├── middlewares/        # JWT protection and file upload handling
+│   ├── middlewares/        # JWT protection, validation, and file upload handling
 │   ├── models/             # User and note schemas
 │   ├── routes/             # Auth, notes, and user endpoints
+│   ├── validators/         # Auth input validation rules
 │   └── utils/              # Token helpers
 └── frontend/
     ├── src/api/            # Auth, note, and user API wrappers
-    ├── src/components/     # Navbar, note form, notes grid, route guard
+    ├── src/components/     # Navbar, note form, notes grid, route guard, skeletons
     ├── src/layout/         # Auth and app shells
     ├── src/pages/          # Landing, register, home, note, edit, settings, 404
     ├── src/types/          # TypeScript models and API error shapes
@@ -138,26 +141,11 @@ Backend: `http://localhost:3000`
 | `CLOUDINARY_API_SECRET` | Cloudinary API secret                    |
 | `PORT`                  | Optional server port, defaults to `3000` |
 | `NODE_ENV`              | Controls production cookie security      |
+| `VITE_API_BASE_URL`     | Base URL for frontend API requests       |
 
-The frontend uses an environment-based API configuration.
+The frontend uses an environment-based API configuration. Create `frontend/.env` with `VITE_API_BASE_URL=http://localhost:3000` during local development.
 
-`````md
-Create `frontend/.env`:
-
-```env
-VITE_API_BASE_URL=http://localhost:3000
-```
-`````
-
-> In production, this is configured to point to the deployed backend URL.
-
-````
-
----
-
-```md
-| `VITE_API_BASE_URL` | Base URL for frontend API requests |
-````
+> In production, this points to the deployed backend URL.
 
 ---
 
@@ -173,7 +161,8 @@ All protected endpoints require the auth cookie.
 
 ### Notes
 
-- `GET /` - Health check.
+- `GET /` - API working message.
+- `GET /api/health` - Health check.
 - `POST /add` - Create a note.
 - `GET /read` - Fetch the current user’s notes.
 - `GET /read/:id` - Fetch one note.
@@ -193,9 +182,11 @@ All protected endpoints require the auth cookie.
 - Cookie-based auth keeps the session HTTP-only and avoids localStorage token handling.
 - `protect` middleware enforces ownership on the server, while `ProtectedRoutes` guards the UI.
 - Auth, notes, and user APIs are split into dedicated frontend modules for clean ownership.
-- Registration returns structured field errors, so the UI can map duplicate email and username issues precisely.
+- Registration validation runs through `express-validator` and a shared middleware, so the UI can map duplicate email and username issues precisely.
+- Protected route transitions use skeleton loaders, which keeps refreshes feeling fast and stable.
 - Profile uploads replace the previous Cloudinary asset instead of leaking stale images.
 - The auth context bootstraps the signed-in user once and drives the app state from there.
+- Vercel Analytics is wired into the app for lightweight production usage visibility.
 
 ## Challenges & Learnings
 
@@ -208,14 +199,10 @@ All protected endpoints require the auth cookie.
 
 - Add search, filters, and pagination for larger note sets.
 - Support markdown or richer formatting for notes.
-- Add stronger validation and loading states.
+- Expand validation coverage for note updates and profile changes.
 - Add automated tests for auth, ownership, and upload flows.
 
 ## Author
 
 - Author: Hafeez Mohammad
 - Repository: VoiceNote
-
-```
-
-```
