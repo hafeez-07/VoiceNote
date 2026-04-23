@@ -12,7 +12,7 @@
   <img src="https://img.shields.io/badge/Status-Production--Ready-success" />
 </p>
 
-VoiceNote is a production-ready MERN notes platform focused on **secure authentication, user-owned data, and clean UX**.
+VoiceNote is a full stack MERN notes platform focused on **secure authentication, user-owned data, and clean UX**.
 Unlike basic CRUD demos, this project implements **real-world patterns** like cookie-based authentication, protected routes, structured API errors, and media lifecycle management.
 
 ---
