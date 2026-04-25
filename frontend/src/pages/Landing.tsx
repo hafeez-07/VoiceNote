@@ -5,6 +5,8 @@ import { loginUser } from "../api/authApi";
 import useAuth from "../../hooks/useAuth";
 import illustration from "../assets/illustration.png";
 import { FaCheck } from "react-icons/fa";
+import { isApiError } from "../utils/api";
+import type { LoginError } from "../types/error";
 
 const Landing = () => {
   const [formData, setFormData] = useState<LoggedInUser>({
@@ -12,6 +14,7 @@ const Landing = () => {
     password: "",
   });
   const [error, setError] = useState("");
+  const [fieldError, setFieldError] = useState<LoginError>({});
   const [loading, setLoading] = useState(false);
 
   const navigate = useNavigate();
@@ -30,13 +33,26 @@ const Landing = () => {
     if (loading) return;
     e.preventDefault();
     setError("");
+    setFieldError({});
     setLoading(true);
     try {
       const userData = await loginUser(formData);
       setUser(userData);
       navigate(location.state?.from || "/app");
     } catch (err: unknown) {
-      setError(err instanceof Error ? err.message : "Could not login");
+      console.log("raw", err);
+      if (isApiError(err)) {
+        //error from validate middleware -> Field level error
+        if (err.errors) {
+          setFieldError(err.errors);
+        }
+        //error from auth -> global error
+        if (err.error) {
+          setError(err.error);
+        }
+      } else {
+        setError("something went wrong");
+      }
     } finally {
       setLoading(false);
     }
@@ -80,43 +96,57 @@ const Landing = () => {
       <div className="relative flex h-screen w-full items-center justify-center overflow-hidden bg-linear-to-br from-zinc-900 via-zinc-800 to-black px-6 md:w-[40%]">
         <div className="absolute top-1/2 -left-20 h-100 w-100 -translate-y-1/2 rounded-full bg-orange-500/20 blur-3xl"></div>
         <div className="relative w-full max-w-md overflow-hidden rounded-2xl border border-white/10 bg-white/5 p-8 shadow-2xl backdrop-blur-xl">
-          <h2 className="mb-6 text-center text-xl font-semibold text-white">
+          <h2
+            className={`${error ? "mb-3" : "mb-6"} text-center text-xl font-semibold text-white`}
+          >
             Log in to your account
           </h2>
 
           <form onSubmit={submitHandler} className="flex flex-col gap-4">
-            {/* ERROR FLASH MESSAGE */}
-            {error && (
+            <div className="flex flex-col">
+              {/* ERROR FLASH MESSAGE */}
               <div
-                className={`overflow-hidden text-center text-sm text-red-400 transition-all duration-300 ease-out ${
-                  error ? "max-h-8 opacity-100" : "max-h-0 opacity-0"
+                aria-live="polite"
+                className={`overflow-hidden text-center text-sm text-red-400 transition-all duration-300 ease-in ${
+                  error ? "mb-3 max-h-8 opacity-100" : "mb-0 max-h-0 opacity-0"
                 }`}
               >
                 {error}
               </div>
-            )}
 
-            {/* EMAIL */}
-            <input
-              type="email"
-              name="email"
-              value={formData.email}
-              onChange={handleChange}
-              placeholder="Email address"
-              required
-              className="auth-input-field"
-            />
+              {/* EMAIL */}
+
+              <input
+                type="email"
+                name="email"
+                value={formData.email}
+                onChange={handleChange}
+                placeholder="Email address"
+                className="auth-input-field"
+              />
+              <div
+                className={`error-message overflow-hidden transition-all duration-300 ease-in ${fieldError.email ? "mt-1 max-h-8 opacity-100" : "mt-0 max-h-0 opacity-0"} `}
+              >
+                {fieldError.email}
+              </div>
+            </div>
 
             {/* PASSWORD */}
-            <input
-              type="password"
-              name="password"
-              value={formData.password}
-              onChange={handleChange}
-              placeholder="Password"
-              required
-              className="auth-input-field"
-            />
+            <div className="flex flex-col">
+              <input
+                type="password"
+                name="password"
+                value={formData.password}
+                onChange={handleChange}
+                placeholder="Password"
+                className="auth-input-field"
+              />
+              <div
+                className={`error-message overflow-hidden transition-all duration-300 ease-in ${fieldError.password ? "mt-1 max-h-6 opacity-100" : "mt-0 max-h-0 opacity-0"}`}
+              >
+                {fieldError.password}
+              </div>
+            </div>
 
             {/* BUTTON */}
             <button

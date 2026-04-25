@@ -32,8 +32,9 @@ export const loginUser = async (user: LoggedInUser) => {
     body: JSON.stringify(user),
   });
   const data = await response.json();
+ 
   if (!response.ok) {
-    throw new Error(data.error || "couldn't log in");
+    throw data;
   }
   return data;
 };

@@ -59,14 +59,7 @@ export const loginUser = async (req, res) => {
   try {
     const { email, password } = req.body;
 
-    //validate input
-    if (!email || !password) {
-      return res.status(400).json({
-        error: "All fields are required",
-      });
-    }
-
-    //check if email is correct
+    //check if user exist
     const user = await User.findOne({ email });
 
     if (!user) {

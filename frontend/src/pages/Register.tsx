@@ -100,15 +100,22 @@ const Register = () => {
       <div className="relative flex h-screen w-full items-center justify-center overflow-hidden bg-linear-to-br from-zinc-900 via-zinc-800 to-black px-6 md:w-[40%]">
         <div className="h absolute top-1/2 -left-20 h-100 w-100 -translate-y-1/2 rounded-full bg-orange-500/20 blur-3xl"></div>
         <div className="relative w-full max-w-md overflow-hidden rounded-2xl border border-white/10 bg-white/5 p-8 shadow-2xl backdrop-blur-xl">
-          <h2 className="mb-6 text-center text-xl font-semibold text-white">
+          <h2 className={`${errors.general ? "mb-3" :"mb-6"} text-center text-xl font-semibold text-white`}>
             Register account
           </h2>
 
           <form onSubmit={handleSubmit} className="flex flex-col gap-5">
-            {errors.general && (
-              <div className="error-message text-center">{errors.general}</div>
-            )}{" "}
             <div className="flex flex-col">
+              <div
+                aria-live="polite"
+                className={`overflow-hidden text-center text-sm text-red-400 transition-all duration-300 ease-out ${
+                  errors.general
+                    ? "mb-3 max-h-8 opacity-100"
+                    : "mb-0 max-h-0 opacity-0"
+                }`}
+              >
+                {errors.general}
+              </div>
               <input
                 type="text"
                 name="fullname"
