@@ -9,7 +9,7 @@
   <img src="https://img.shields.io/badge/Backend-Node%20%2B%20Express-green" />
   <img src="https://img.shields.io/badge/Database-MongoDB-brightgreen" />
   <img src="https://img.shields.io/badge/Auth-JWT%20Cookies-orange" />
-  <img src="https://img.shields.io/badge/Status-Production--Ready-success" />
+  <img src="https://img.shields.io/badge/Status-active-success" />
 </p>
 
 VoiceNote is a full stack MERN notes platform focused on **secure authentication, user-owned data, and clean UX**.
