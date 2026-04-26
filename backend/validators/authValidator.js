@@ -33,12 +33,11 @@ export const registerValidation = [
     .notEmpty()
     .withMessage("Password is required")
     .bail()
-    .isLength({ min: 6 })
-    .withMessage("Password length must be at least 6")
+    .isLength({ min: 6, max: 12 })
+    .withMessage("Password length must be 6-12 chars")
     .bail()
     .matches(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).+$/)
-    .withMessage("must contain at least 1 uppercase ,1 lowercase and 1 number")
-   
+    .withMessage("must contain at least 1 uppercase ,1 lowercase and 1 number"),
 ];
 
 export const loginValidation = [
