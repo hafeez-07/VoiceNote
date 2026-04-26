@@ -5,7 +5,7 @@ export const validate = (req, res, next) => {
 
   if (!errors.isEmpty()) {
     const formattedErrors = {};
-    console.log(errors.array());
+
     errors.array().forEach((err) => {
       //only take first error per field  , same as formattedError.email or password
       if (!formattedErrors[err.path]) {
