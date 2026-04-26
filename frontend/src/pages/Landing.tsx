@@ -123,6 +123,7 @@ const Landing = () => {
                 onChange={handleChange}
                 placeholder="Email address"
                 className="auth-input-field"
+                required
               />
               <div
                 className={`error-message overflow-hidden transition-all duration-300 ease-in ${fieldError.email ? "mt-1 max-h-8 opacity-100" : "mt-0 max-h-0 opacity-0"} `}
@@ -140,6 +141,7 @@ const Landing = () => {
                 onChange={handleChange}
                 placeholder="Password"
                 className="auth-input-field"
+                required
               />
               <div
                 className={`error-message overflow-hidden transition-all duration-300 ease-in ${fieldError.password ? "mt-1 max-h-6 opacity-100" : "mt-0 max-h-0 opacity-0"}`}
