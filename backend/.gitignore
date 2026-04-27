@@ -31,3 +31,4 @@ temp/
 .idea/
 .DS_Store
 Thumbs.db
+tsconfig.json

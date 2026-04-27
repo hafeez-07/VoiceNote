@@ -40,7 +40,7 @@ const Landing = () => {
       setUser(userData);
       navigate(location.state?.from || "/app");
     } catch (err: unknown) {
-      console.log("raw", err);
+    
       if (isApiError(err)) {
         //error from validate middleware -> Field level error
         if (err.errors) {
