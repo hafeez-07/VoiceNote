@@ -47,17 +47,19 @@ Unlike basic CRUD demos, this project implements **real-world patterns** like co
 - Cloudinary profile uploads with instant preview and cleanup of replaced images.
 - Field-specific API error handling for duplicate email and username cases.
 - Responsive dark UI with toast feedback, skeleton loading states, and polished empty states.
+- Rate-limiting and brute-force protections on auth routes (login throttling and a secondary slow-block layer).
+- Global request limiting for DOS mitigation and request-rate observability.
 
 ## ⚙️ Tech Stack
 
-| Area            | Stack                                                                            |
-| --------------- | -------------------------------------------------------------------------------- |
-| Frontend        | React 19, TypeScript, Vite, React Router DOM 7, Tailwind CSS 4, Vercel Analytics |
-| UI / Feedback   | Sonner, React Icons                                                              |
-| Backend         | Node.js, Express 5, MongoDB, Mongoose, Express Validator                         |
-| Auth / Security | JWT, bcrypt, cookie-parser, CORS                                                 |
-| Media Uploads   | Multer, multer-storage-cloudinary, Cloudinary                                    |
-| Tooling         | Prettier, prettier-plugin-tailwindcss                                            |
+| Area            | Stack                                                                                |
+| --------------- | ------------------------------------------------------------------------------------ |
+| Frontend        | React 19, TypeScript, Vite, React Router DOM 7, Tailwind CSS 4, Vercel Analytics     |
+| UI / Feedback   | Sonner, React Icons                                                                  |
+| Backend         | Node.js, Express 5, MongoDB, Mongoose, Express Validator, helmet, express-rate-limit |
+| Auth / Security | JWT, bcrypt, cookie-parser, CORS                                                     |
+| Media Uploads   | Multer, multer-storage-cloudinary, Cloudinary                                        |
+| Tooling         | Prettier, prettier-plugin-tailwindcss                                                |
 
 > Built with a modern full-stack architecture focused on scalability, clean separation of concerns, and production-ready practices.
 
@@ -70,7 +72,7 @@ mern-notes-app/
 │   ├── server.js           # Server bootstrap
 │   ├── config/             # MongoDB and Cloudinary configuration
 │   ├── controllers/        # Auth, notes, and user handlers
-│   ├── middlewares/        # JWT protection, validation, and file upload handling
+│   ├── middlewares/        # JWT protection, validation, file upload handling, rate limiting (rateLimiter.js)
 │   ├── models/             # User and note schemas
 │   ├── routes/             # Auth, notes, and user endpoints
 │   ├── validators/         # Auth input validation rules
@@ -187,6 +189,8 @@ All protected endpoints require the auth cookie.
 - Profile uploads replace the previous Cloudinary asset instead of leaking stale images.
 - The auth context bootstraps the signed-in user once and drives the app state from there.
 - Vercel Analytics is wired into the app for lightweight production usage visibility.
+- Global rate limiting plus layered login throttling (per-email + slow-block) mitigates DOS and credential-stuffing attacks.
+- `helmet` is applied to set secure HTTP headers; `app.set("trust proxy", 1)` and CORS origin whitelisting are configured for safe proxy/CDN deployments.
 
 ## Challenges & Learnings
 
