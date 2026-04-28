@@ -47,10 +47,5 @@ app.get("/api/health", (req, res) => {
     status: "ok",
   });
 });
-app.get("/ip", (req, res) => {
-  res.json({
-    ip: req.ip,
-  });
-});
 
 export default app;
