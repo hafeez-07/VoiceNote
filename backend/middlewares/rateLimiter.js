@@ -8,7 +8,7 @@ export const globalLimiter = rateLimit({
   legacyHeaders: false, //remove old header format
   standardHeaders: true, //send modern header : eg:- Ratelimit-Remaining
   message: {
-    error: "Too many request , please try again after 15 min",
+    error: "Too many request. Try again after 15 min",
   },
 });
 
@@ -32,7 +32,7 @@ export const loginLimiter = rateLimit({
   },
   skipSuccessfulRequests: true, //do not count successful request
   message: {
-    error: "Too many attempts , please try again after 1 min",
+    error: "Too many attempts. Try again after 1 min",
   },
 });
 

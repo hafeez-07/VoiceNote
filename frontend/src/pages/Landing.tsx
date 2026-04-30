@@ -108,7 +108,7 @@ const Landing = () => {
               <div
                 aria-live="polite"
                 className={`overflow-hidden text-center text-sm text-red-400 transition-all duration-300 ease-in ${
-                  error ? "mb-3 max-h-8 opacity-100" : "mb-0 max-h-0 opacity-0"
+                  error ? "mb-3 max-h-12 opacity-100" : "mb-0 max-h-0 opacity-0"
                 }`}
               >
                 {error}
@@ -126,7 +126,7 @@ const Landing = () => {
                 required
               />
               <div
-                className={`error-message overflow-hidden transition-all duration-300 ease-in ${fieldError.email ? "mt-1 max-h-8 opacity-100" : "mt-0 max-h-0 opacity-0"} `}
+                className={`error-message overflow-hidden transition-all duration-300 ease-in ${fieldError.email ? "mt-1 max-h-12 opacity-100" : "mt-0 max-h-0 opacity-0"} `}
               >
                 {fieldError.email}
               </div>
@@ -144,7 +144,7 @@ const Landing = () => {
                 required
               />
               <div
-                className={`error-message overflow-hidden transition-all duration-300 ease-in ${fieldError.password ? "mt-1 max-h-6 opacity-100" : "mt-0 max-h-0 opacity-0"}`}
+                className={`error-message overflow-hidden transition-all duration-300 ease-in ${fieldError.password ? "mt-1 max-h-12 opacity-100" : "mt-0 max-h-0 opacity-0"}`}
               >
                 {fieldError.password}
               </div>

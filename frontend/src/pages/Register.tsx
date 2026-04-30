@@ -110,7 +110,7 @@ const Register = () => {
                 aria-live="polite"
                 className={`overflow-hidden text-center text-sm text-red-400 transition-all duration-300 ease-out ${
                   errors.general
-                    ? "mb-3 max-h-8 opacity-100"
+                    ? "mb-3 max-h-12 opacity-100"
                     : "mb-0 max-h-0 opacity-0"
                 }`}
               >
@@ -129,7 +129,7 @@ const Register = () => {
                 aria-live="polite"
                 className={`overflow-hidden transition-all duration-300 ease-out ${
                   errors.fullname
-                    ? "mt-1 max-h-8 opacity-100"
+                    ? "mt-1 max-h-12 opacity-100"
                     : "mt-0 max-h-0 opacity-0"
                 }`}
               >
@@ -150,7 +150,7 @@ const Register = () => {
                 aria-live="polite"
                 className={`overflow-hidden transition-all duration-300 ease-out ${
                   errors.username
-                    ? "mt-1 max-h-8 opacity-100"
+                    ? "mt-1 max-h-12 opacity-100"
                     : "mt-0 max-h-0 opacity-0"
                 }`}
               >
@@ -171,7 +171,7 @@ const Register = () => {
                 aria-live="polite"
                 className={`overflow-hidden transition-all duration-300 ease-out ${
                   errors.email
-                    ? "mt-1 max-h-8 opacity-100"
+                    ? "mt-1 max-h-12 opacity-100"
                     : "mt-0 max-h-0 opacity-0"
                 }`}
               >
@@ -192,7 +192,7 @@ const Register = () => {
                 aria-live="polite"
                 className={`overflow-hidden transition-all duration-300 ease-out ${
                   errors.password
-                    ? "mt-1 max-h-8 opacity-100"
+                    ? "mt-1 max-h-12 opacity-100"
                     : "mt-0 max-h-0 opacity-0"
                 }`}
               >
